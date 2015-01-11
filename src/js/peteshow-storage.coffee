@@ -10,6 +10,6 @@ module.exports =
 
   set: (key, data) ->
     console.log('PeteshowStorage::set')
-    _data = {}
+    _data = store.get('peteshow') || {}
     _data[key] = data
     store.set('peteshow', _data)

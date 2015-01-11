@@ -4,12 +4,12 @@ store = require('./peteshow-storage')
 
 class PeteshowView
   controller: require('./peteshow-controller')
-  _position: {}
   _events: {}
 
   constructor: ->
     console.log("PeteshowView::init")
     @_position = store.get('position') || {x:0, y:0}
+    @_active = store.get('active') || false
     @_events =
       '#fill-out-forms' : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
@@ -70,13 +70,16 @@ class PeteshowView
     console.log('PeteshowView::render')
     template = indexTemplate()
     $('body').append(template)
+    @show()
     @_positionWindow()
     @_createEvents(@_events)
 
-  show: ->
-    console.log('PeteshowView::show')
-    $('#peteshow').toggleClass('active')
-    $('#peteshow-tools').toggle()
+  show: =>
+    console.log('PeteshowView::show', @_active)
+    $('#peteshow').toggleClass('active', @_active)
+    $('#peteshow-tools').toggle(@_active)
+    store.set('active', @_active)
+    @_active = !@_active
 
   hide: ->
     console.log('PeteshowView::hide')
