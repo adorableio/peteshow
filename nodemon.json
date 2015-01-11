@@ -1,0 +1,15 @@
+{
+  "ext": ".coffee",
+  "watch": [
+    "src/**/*",
+    "test/test_server.coffee"
+  ],
+  "ignore": [
+    "app/**/*",
+    ".generated/**/*",
+    "start.coffee"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

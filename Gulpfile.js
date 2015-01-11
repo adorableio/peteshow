@@ -20,7 +20,7 @@ var browserify   = require('browserify'),
 
 // Base paths
 var BASE_SRC_PATH        = path.join(__dirname, 'src'),
-    BASE_LIB_ASSETS_PATH = path.join(__dirname, 'lib', 'assets'),
+    BASE_GENERATED_PATH = path.join(__dirname, '.generated'),
     BASE_JS_PATH         = path.join(BASE_SRC_PATH, 'js'),
     BASE_CSS_PATH        = path.join(BASE_SRC_PATH, 'css');
 
@@ -39,8 +39,8 @@ var paths = {
   },
 
   output: {
-    css : path.join(BASE_LIB_ASSETS_PATH, 'stylesheets'),
-    js  : path.join(BASE_LIB_ASSETS_PATH, 'javascripts'),
+    css : path.join(BASE_GENERATED_PATH, 'stylesheets'),
+    js  : path.join(BASE_GENERATED_PATH, 'javascripts'),
   },
 
   watch: {
@@ -52,7 +52,7 @@ var paths = {
   },
 
   clean: [
-    path.join(BASE_LIB_ASSETS_PATH, '**', '*')
+    path.join(BASE_GENERATED_PATH, '**', '*')
   ],
 
   test: [ 'tests/index.html' ]
