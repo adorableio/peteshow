@@ -117,10 +117,14 @@ gulp.task('clean', function() {
 // Watch
 gulp.task('watch', ['pre-watch'], function() {
   watch(paths.watch.css, function(files, cb) {
-    gulp.start('css', cb);
+    gulp
+      .start('css', cb)
+      .on('error', gutil.log);
   });
   watch(paths.watch.js, function(files, cb) {
-    gulp.start('js', cb);
+    gulp
+      .start('js', cb)
+      .on('error', gutil.log);
   });
 });
 
