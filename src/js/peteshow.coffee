@@ -1,13 +1,18 @@
 _          = require('underscore')
 store      = require('./peteshow-storage')
 helpers    = require('./peteshow-helpers')
+cs         = require('calmsoul')
+
+cs.set
+  "log"   : false
+  "debug" : true
+  "info"  : true
 
 Peteshow =
   view       : null
   store      : store
   random     : helpers
 
-  defaults   :
     emailPrefix : 'test-'
     emailDomain : 'example.com'
     form        : ''
@@ -23,15 +28,14 @@ Peteshow =
     special     : null
     events      : null
 
-  options    : {}
-
   init: (options = {}) ->
-    @view = require('./peteshow-view')
-
+    cs.log('Peteshow::init', options)
     @setOptions(options)
+
     @view.render()
 
   setOptions: (options = {}) ->
-    @options = _.defaults(options, @defaults)
+    cs.log('Peteshow::setOptions')
+
 
 exports = module.exports = window.Peteshow = Peteshow

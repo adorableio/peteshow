@@ -1,13 +1,14 @@
 _ = require('underscore')
 indexTemplate = require('../templates/index.hbs')
 store = require('./peteshow-storage')
+cs            = require('calmsoul')
 
 class PeteshowView
   controller: require('./peteshow-controller')
   _events: {}
 
   constructor: ->
-    console.log("PeteshowView::init")
+    cs.log("PeteshowView::init")
     @_position = store.get('position') || {x:0, y:0}
     @_active = store.get('active') || false
     @_events =
@@ -58,16 +59,16 @@ class PeteshowView
       windowBottom = $(window).height()
       mouseBottomDiff = $el.offset().top - position.y + windowBottom - $el.height()
 
-      console.log position
+      cs.log position
       position.y = windowBottom - $el.height() if position.y >= mouseBottomDiff
-      console.log position
+      cs.log position
       @_position = position
 
     position ?= @_position
     $el.css(left: position.x, top: position.y)
 
   render: ->
-    console.log('PeteshowView::render')
+    cs.log('PeteshowView::render')
     template = indexTemplate()
     $('body').append(template)
     @show()
@@ -75,16 +76,17 @@ class PeteshowView
     @_createEvents(@_events)
 
   show: =>
-    console.log('PeteshowView::show', @_active)
+    cs.log('PeteshowView::show', @_active)
     $('#peteshow').toggleClass('active', @_active)
     $('#peteshow-tools').toggle(@_active)
     store.set('active', @_active)
     @_active = !@_active
 
   hide: ->
-    console.log('PeteshowView::hide')
+    cs.log('PeteshowView::hide')
     $('#peteshow').hide()
 
-  destroy: -> console.log('PeteshowView::destroy')
+  destroy: ->
+    cs.log('PeteshowView::destroy')
 
 module.exports = new PeteshowView()
