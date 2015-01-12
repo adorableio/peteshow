@@ -5,6 +5,7 @@ module.exports =
   get: (key) ->
     console.log('PeteshowStorage::get')
     data = store.get('peteshow')
+    return unless data
     return data[key] if key?
     data
 
