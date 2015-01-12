@@ -14,7 +14,7 @@ Peteshow =
     blur        : false
     cookies     : false
 
-    rules       : []
+    rules       : require('./peteshow-rules')
     filter      : []
     ignore      : []
     force       : {}
