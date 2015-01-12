@@ -1,10 +1,10 @@
-_ = require('underscore')
+_             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
-store = require('./peteshow-storage')
+store         = require('./peteshow-storage')
 cs            = require('calmsoul')
 
 class PeteshowView
-  controller: require('./peteshow-controller')
+  controller: Peteshow.controller
   _events: {}
 
   constructor: ->
@@ -88,5 +88,6 @@ class PeteshowView
 
   destroy: ->
     cs.log('PeteshowView::destroy')
+    $('#peteshow').remove()
 
 module.exports = new PeteshowView()

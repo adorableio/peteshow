@@ -1,4 +1,4 @@
-_ = require('underscore')
+_  = require('lodash')
 cs = require('calmsoul')
 
 class PeteshowController
@@ -14,6 +14,11 @@ class PeteshowController
   fillInputs: ->
     cs.log('PeteshowController::fillInputs')
     for element, rule of Peteshow.options.rules
+      value = if _.isFunction(rule) then rule() else rule
+      $(element).each (i, el) ->
+        ignored = $(el).is(Peteshow.options.ignore.toString())
+        return if ignored
+        $(el).val(value)
 
   fillCheckboxes: (i, v) ->
     cs.log('PeteshowController::fillCheckboxes')
@@ -28,6 +33,9 @@ class PeteshowController
         $els = $("input:radio[name='#{name}']")
         randomIndex = Math.floor(Math.random() * $els.length)
         $el = $els.eq(randomIndex)
+        $el
+          .prop('checked', true)
+          .change()
 
   fillSelectBoxes: (i, v) ->
     cs.log('PeteshowController::fillSelectBoxes')

@@ -1,5 +1,6 @@
-Faker = require('faker')
+Faker  = require('faker')
 cs     = require('calmsoul')
+moment = require('moment')
 
 randomString = (length, chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') ->
   result = ''
