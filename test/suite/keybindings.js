@@ -1,7 +1,7 @@
 module('keybindings', {
   beforeEach: function() {
     Peteshow.init();
-    Peteshow.show();
+    Peteshow.show(true);
   },
   afterEach: function() {
     Peteshow.destroy();

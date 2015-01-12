@@ -7,6 +7,10 @@ class PeteshowView
   controller: Peteshow.controller
   _events: {}
 
+  $peteshow: '#peteshow'
+  $dragHandle: '#peteshow-drag-handle'
+  $tools: '#peteshow-tools'
+
   constructor: ->
     cs.log("PeteshowView::init")
     @_position = store.get('position') || {x:0, y:0}
@@ -16,6 +20,11 @@ class PeteshowView
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
       '#peteshow-toggle': @show
       '#peteshow-hide': @hide
+
+  _bindElements: ->
+    @$peteshow   = $(@$peteshow)
+    @$tools      = $(@$tools)
+    @$dragHandle = $(@$dragHandle)
 
   _createEvents: (events) ->
     for key, value of events
@@ -50,7 +59,7 @@ class PeteshowView
       @_positionWindow(position)
 
   _positionWindow: (position) ->
-    $el = $("#peteshow")
+    $el = @$peteshow
     if position
       position.x = 0 if position.x < 0
       position.y = 0 if position.y < 0
@@ -69,22 +78,31 @@ class PeteshowView
 
   render: ->
     cs.log('PeteshowView::render')
+
     template = indexTemplate()
     $('body').append(template)
-    @show()
+
+    @_bindElements()
     @_positionWindow()
     @_createEvents(@_events)
+    @show(@_active)
 
-  show: =>
-    cs.log('PeteshowView::show', @_active)
-    $('#peteshow').toggleClass('active', @_active)
-    $('#peteshow-tools').toggle(@_active)
-    store.set('active', @_active)
-    @_active = !@_active
+  show: (active) ->
+    if active == undefined
+      active = !@_active
+    console.log "----->", active
+
+    cs.debug('PeteshowView::show', active)
+
+    @$peteshow.toggleClass('active', active)
+    @$tools.toggle(active)
+
+    store.set('active', active)
+    @_active = active
 
   hide: ->
     cs.log('PeteshowView::hide')
-    $('#peteshow').hide()
+    $('#peteshow').show(false)
 
   destroy: ->
     cs.log('PeteshowView::destroy')

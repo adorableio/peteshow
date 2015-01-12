@@ -42,6 +42,10 @@ Peteshow =
     cs.log('Peteshow::setOptions')
     @options = _.merge(@defaults, options)
 
+  show: (active) ->
+    cs.log('Peteshow::show', active)
+    @view.show(active)
+
   destroy: ->
     cs.log('Peteshow::destroy')
     @view.destroy()
