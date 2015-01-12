@@ -40,6 +40,7 @@ var paths = {
     
     testSync: [
       path.join(BASE_TEST_PATH, 'suite', '*.js'),
+      path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
       path.join(BASE_TEST_PATH, '*.html')
     ]
   },
@@ -58,6 +59,7 @@ var paths = {
     ],
     testSync : [
       path.join(BASE_TEST_PATH, 'suite', '*.js'),
+      path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
       path.join(BASE_TEST_PATH, '*.html')
     ]
   },
