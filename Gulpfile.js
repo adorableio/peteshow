@@ -155,11 +155,11 @@ gulp.task('watch', ['pre-watch'], function() {
 });
 
 gulp.task('pre-watch', function(callback) {
-  runSequence('clean', ['css', 'js'], 'test-sync', callback);
+  runSequence('clean', 'css', 'js', 'test-sync', callback);
 });
 
 //
 // Default
 gulp.task('default', function(callback) {
-  runSequence('clean', ['css', 'js'], 'test-sync', 'test', callback);
+  runSequence('clean', 'css', 'js', 'test-sync', 'test', callback);
 });
