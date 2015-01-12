@@ -19,10 +19,11 @@ var browserify   = require('browserify'),
     watch        = require('gulp-watch');
 
 // Base paths
-var BASE_SRC_PATH        = path.join(__dirname, 'src'),
+var BASE_SRC_PATH       = path.join(__dirname, 'src'),
     BASE_GENERATED_PATH = path.join(__dirname, '.generated'),
-    BASE_JS_PATH         = path.join(BASE_SRC_PATH, 'js'),
-    BASE_CSS_PATH        = path.join(BASE_SRC_PATH, 'css');
+    BASE_JS_PATH        = path.join(BASE_SRC_PATH, 'js'),
+    BASE_CSS_PATH       = path.join(BASE_SRC_PATH, 'css');
+    BASE_TEST_PATH      = path.join(__dirname, 'test');
 
 // Task paths
 var paths = {
@@ -35,12 +36,18 @@ var paths = {
       src: [
         path.join(BASE_JS_PATH, 'peteshow.coffee')
       ]
-    }
+    },
+    
+    testSync: [
+      path.join(BASE_TEST_PATH, 'suite', '*.js'),
+      path.join(BASE_TEST_PATH, '*.html')
+    ]
   },
 
   output: {
-    css : path.join(BASE_GENERATED_PATH, 'stylesheets'),
-    js  : path.join(BASE_GENERATED_PATH, 'javascripts'),
+    css     : path.join(BASE_GENERATED_PATH, 'stylesheets'),
+    js      : path.join(BASE_GENERATED_PATH, 'javascripts'),
+    testSync: path.join(BASE_GENERATED_PATH)
   },
 
   watch: {
@@ -48,6 +55,10 @@ var paths = {
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
       path.join(BASE_SRC_PATH, 'templates', '*.hbs')
+    ],
+    testSync : [
+      path.join(BASE_TEST_PATH, 'suite', '*.js'),
+      path.join(BASE_TEST_PATH, '*.html')
     ]
   },
 
@@ -55,13 +66,21 @@ var paths = {
     path.join(BASE_GENERATED_PATH, '**', '*')
   ],
 
-  test: [ 'tests/index.html' ]
+  test: [ 'test/index.html' ]
 };
 
 // test : qunit
 gulp.task('test', function() {
-  return gulp.src('./tests/index.html')
+  return gulp.src(path.join(BASE_GENERATED_PATH, 'test_index.html'))
     .pipe(qunit());
+});
+
+// test : synchronize
+gulp.task('test-sync', function() {
+  return gulp.src(paths.input.testSync, { base: BASE_TEST_PATH })
+    .pipe(gulp.dest(paths.output.testSync)
+      .on('error', gutil.log)
+      .on('error', gutil.beep));
 });
 
 //
@@ -126,14 +145,19 @@ gulp.task('watch', ['pre-watch'], function() {
       .start('js', cb)
       .on('error', gutil.log);
   });
+  watch(paths.watch.testSync, function(files, cb) {
+    gulp
+      .start('test-sync', cb)
+      .on('error', gutil.log);
+  });
 });
 
 gulp.task('pre-watch', function(callback) {
-  runSequence('clean', ['css', 'js'], callback);
+  runSequence('clean', ['css', 'js'], 'test-sync', callback);
 });
 
 //
 // Default
 gulp.task('default', function(callback) {
-  runSequence('clean', ['css', 'js'], 'test', callback);
+  runSequence('clean', ['css', 'js'], 'test-sync', 'test', callback);
 });
