@@ -178,21 +178,15 @@ gulp.task('clean', function() {
 // Watch
 gulp.task('watch', ['pre-watch'], function() {
   watch(paths.watch.css, function() {
-    gulp
-      .start('css')
-      .on('error', gutil.log);
+    gulp.start('css');
   });
 
   watch(paths.watch.js, function() {
-    gulp
-      .start('js')
-      .on('error', gutil.log);
+    gulp.start('js');
   });
 
   watch(paths.watch.testSync, function() {
-    gulp
-      .start('test-sync')
-      .on('error', gutil.log);
+    gulp.start('test-sync');
   });
 });
 
