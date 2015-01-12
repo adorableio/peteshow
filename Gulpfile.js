@@ -160,17 +160,19 @@ gulp.task('clean', function() {
 //
 // Watch
 gulp.task('watch', ['pre-watch'], function() {
-  watch(paths.watch.css, function(files, cb) {
+  watch(paths.watch.css, function() {
     gulp
-      .start('css', cb)
+      .start('css')
       .on('error', gutil.log);
   });
-  watch(paths.watch.js, function(files, cb) {
+
+  watch(paths.watch.js, function() {
     gulp
-      .start('js', cb)
+      .start('js')
       .on('error', gutil.log);
   });
-  watch(paths.watch.testSync, function(files, cb) {
+
+  watch(paths.watch.testSync, function() {
     gulp
       .start('test-sync', cb)
       .on('error', gutil.log);
