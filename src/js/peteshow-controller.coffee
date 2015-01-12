@@ -4,15 +4,25 @@ rules   = require('./peteshow-rules')
 class PeteshowController
   fillOutForms: =>
     console.log('PeteshowController::fillOutForms')
+
+    @fillInputs()
     @fillRadioButtons($('input:radio'))
 
   fillOutFormsAndSubmit: ->
     console.log('PeteshowController::fillOutFormsAndSubmit')
 
+  fillInputs: ->
+    console.log('PeteshowController::fillInputs')
+    _rules = _.defaults(Peteshow.options.rules, rules)
+    for element, rule of _rules
+      $(element).val(rule)
+
   fillCheckboxes: (i, v) ->
+    console.log('PeteshowController::fillCheckboxes')
     console.log i, v
 
   fillRadioButtons: ($radioButtonEls) ->
+    console.log('PeteshowController::fillRadioButtons')
     if $radioButtonEls.length > 0
       radioButtonNames = _.uniq($radioButtonEls.map (i, $btn) -> $btn.name)
 
@@ -23,6 +33,7 @@ class PeteshowController
         $el.prop('checked', true)
 
   fillSelectBoxes: (i, v) ->
+    console.log('PeteshowController::fillSelectBoxes')
     console.log i, v
 
 module.exports = new PeteshowController()

@@ -23,6 +23,8 @@ Peteshow =
     special     : null
     events      : null
 
+  options    : {}
+
   init: (options = {}) ->
     @view = require('./peteshow-view')
 
@@ -30,6 +32,6 @@ Peteshow =
     @view.render()
 
   setOptions: (options = {}) ->
-    @defaults = _.defaults(options, @defaults)
+    @options = _.defaults(options, @defaults)
 
 exports = module.exports = window.Peteshow = Peteshow

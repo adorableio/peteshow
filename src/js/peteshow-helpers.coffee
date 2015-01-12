@@ -6,7 +6,9 @@ randomString = (length, chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU
   return result
 
 module.exports =
-  date: -> console.log('PeteshowHelpers::date')
+  date: ->
+    console.log('PeteshowHelpers::date')
+    Faker.date.future(1)
 
   # General
   letters: (n = 8) ->
@@ -40,7 +42,9 @@ module.exports =
     console.log('PeteshowHelpers::companyName')
     Faker.company.companyName()
 
-  email: -> console.log('PeteshowHelpers::email')
+  email: ->
+    console.log('PeteshowHelpers::email')
+    Faker.internet.email()
 
   # Address
   #
