@@ -1,5 +1,6 @@
 // Require the needed packages
 var browserify   = require('browserify'),
+    buffer       = require('vinyl-buffer'),
     coffeeify    = require('coffeeify'),
     hbsfy        = require('hbsfy').configure({extensions: ['.hbs']}),
     del          = require('del'),
@@ -14,7 +15,6 @@ var browserify   = require('browserify'),
     sass         = require('gulp-sass'),
     source       = require('vinyl-source-stream'),
     sourcemaps   = require('gulp-sourcemaps'),
-    streamify    = require('gulp-streamify'),
     uglify       = require('gulp-uglify'),
     watch        = require('gulp-watch');
 
@@ -37,7 +37,7 @@ var paths = {
         path.join(BASE_JS_PATH, 'peteshow.coffee')
       ]
     },
-    
+
     testSync: [
       path.join(BASE_TEST_PATH, 'suite', '*.js'),
       path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
@@ -107,7 +107,8 @@ gulp.task('css', function() {
 // js
 gulp.task('js', function() {
   var jsStream = browserify(paths.input.js.src, {
-      extensions: ['.coffee']
+      extensions: ['.coffee'],
+      debug: true
     })
     .require(paths.input.js.vendor)
     .transform('coffeeify')
@@ -119,12 +120,15 @@ gulp.task('js', function() {
   return jsStream
     .pipe(plumber())
     .pipe(source(paths.input.js.src[0]))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(rename('peteshow.js'))
     .pipe(gulp.dest(paths.output.js))
     .pipe(rename({suffix:'.min'}))
-    .pipe(streamify(uglify())
+    .pipe(uglify()
       .on('error', gutil.log)
       .on('error', gutil.beep))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.js));
 });
 
