@@ -174,7 +174,7 @@ gulp.task('watch', ['pre-watch'], function() {
 
   watch(paths.watch.testSync, function() {
     gulp
-      .start('test-sync', cb)
+      .start('test-sync')
       .on('error', gutil.log);
   });
 });
