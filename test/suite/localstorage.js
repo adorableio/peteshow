@@ -1,12 +1,12 @@
 module('reusing values from localstorage', {
-  setup: function() {
+  beforeEach: function() {
     Peteshow.init({
       reuse : {
         'input[name*=first_name]' : '/tests',
       }
     });
   },
-  teardown: function() {
+  afterEach: function() {
     Peteshow.destroy();
     Peteshow.storage.clear();
   }

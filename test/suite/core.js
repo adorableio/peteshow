@@ -1,22 +1,23 @@
 module('core plugin', {
-  setup: function() {
-    NUMBER_REGEX        = /^[0-9]*$/
-    TEXT_REGEX          = /^[a-zA-Z0-9.',\/_ -]+$/
-    EMAIL_REGEX         = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i
-    DATE_REGEX          = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/
-    PHONE_NUMBER_REGEX  = /\(\d{3}\)\d{3}-\d{4}/
+  beforeEach: function() {
+
+    NUMBER_REGEX        = /^[0-9]*$/;
+    TEXT_REGEX          = /^[a-zA-Z0-9.',\/_ -]+$/;
+    EMAIL_REGEX         = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i;
+    DATE_REGEX          = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
+    PHONE_NUMBER_REGEX  = /\(\d{3}\)\d{3}-\d{4}/;
 
     Peteshow.init({
       rules  : {
         'input[name*=zip]'              : '60611',
-        'input[name*=middle_name]'      : Faker.Name.firstName(),
-        'input[name*=custom_name]'      : function() { return 'Custom' },
-        'input[name*=boolean_checkbox]' : true,
+        'input[name*=middle_name]'      : faker.name.firstName(),
+        'input[name*=custom_name]'      : function() { return 'Custom'; },
+        'input[name*=boolean_checkbox]' : true
       },
       ignore : ['input[name=phone]', '#qunit-modulefilter'],
     });
   },
-  teardown: function() {
+  afterEach: function() {
     Peteshow.destroy();
   }
 });
@@ -26,7 +27,7 @@ test('should be defined on window', function() {
 });
 
 test('should have been added to the dom', function() {
-  equal(1, $('#peteshow').length, 'peteshow exists')
+  equal(1, $('#peteshow').length, 'peteshow exists');
 });
 
 test('should have valid values from defaults after filling out forms', function() {
@@ -52,19 +53,20 @@ test('should have valid values from defaults after filling out forms', function(
     'input[name*=card_type_cd]'                   : '001',
     'input[name*=card_number]'                    : '4111111111111111',
     'input[name*=cvv]'                            : '123',
-  }
+  };
 
   $.each(fields, function(k,v) {
-    if(v.hasOwnProperty('source'))
+    if(v.hasOwnProperty('source')) {
       equal(true, v.test($(k).val()), 'testing ' + k + ' regex');
-    else
+    } else {
       equal(v, $(k).val(), 'testing ' + k + ' string');
+    }
   });
 });
 
 test('should ignore fields', function() {
   Peteshow.fillOutForms();
-  equal(true, $('input[name=phone]').val() == '');
+  equal(true, $('input[name=phone]').val() === "");
 });
 
 test('should have valid values from plugin after filling out forms', function() {

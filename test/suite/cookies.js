@@ -1,5 +1,5 @@
 module('reusing values from cookies', {
-  setup: function() {
+  beforeEach: function() {
     Peteshow.init({
       cookies : true,
       reuse   : {
@@ -7,7 +7,7 @@ module('reusing values from cookies', {
       }
     });
   },
-  teardown: function() {
+  afterEach: function() {
     Peteshow.destroy();
     Peteshow.storage.clear();
   }

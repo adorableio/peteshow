@@ -1,9 +1,9 @@
 module('keybindings', {
-  setup: function() {
+  beforeEach: function() {
     Peteshow.init();
     Peteshow.show();
   },
-  teardown: function() {
+  afterEach: function() {
     Peteshow.destroy();
   }
 });
