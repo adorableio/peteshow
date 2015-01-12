@@ -201,8 +201,12 @@
     <script>
       Peteshow.init({
         cookies: true,
+        rules: {
+          "input[name*=middle_name]": Peteshow.random.name(),
+          "input[name*=custom_name]": 'Custom Name'
+        },
         reuse: { 'input[name*=first_name]': '/tests' },
-        ignore : ['input[name*=name]', '#qunit-modulefilter']
+        ignore : ['input[name=last_name]', '#qunit-modulefilter']
       })
     </script>
   </body>

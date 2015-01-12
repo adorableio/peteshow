@@ -64,6 +64,10 @@ module.exports =
       cs.log('PeteshowHelpers::city')
       Faker.address.city()
 
+    county: ->
+      cs.log('PeteshowHelpers::county')
+      Faker.address.county()
+
     state: ->
       cs.log('PeteshowHelpers::state')
       Faker.address.state({full: true})
