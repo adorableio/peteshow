@@ -37,10 +37,33 @@ class PeteshowView
     __handleDragDown = _.debounce(@_handleDragDown, 100)
     __handleDragUp = _.debounce(@_handleDragUp, 100)
 
-    $('#peteshow-drag-handle').on 'mousedown', __handleDragDown
+    @$dragHandle.on 'mousedown', __handleDragDown
     $(document)
       .on 'mousemove', __handleDragMove
       .on 'mouseup', __handleDragUp
+
+    $(document).keydown @_handleKeypress
+
+  _handleKeypress: (e) =>
+    # key  = if (typeof e.which == 'number') then e.which else e.keyCode
+    code = String.fromCharCode(e.keyCode)
+
+    # # modifier keys
+    # code = 'ctrl_'+code if (e.ctrlKey)
+    # if (e.altKey || (e.originalEvent && e.originalEvent.metaKey))
+    #   code = 'alt_'+code
+    # if (e.shiftKey)
+    #   code = 'shift_'+code
+    # return if ($.inArray(e.keyCode, [9,16,17,18, 91, 93, 224]) != -1)
+    # return if (e.metaKey)
+
+    cs.log(e.keyCode)
+    @show() if (e.keyCode == 192)
+
+    action  = $("[data-command='#{code}']")
+    visible = @$tools.is(':visible')
+
+    action.click() if (action.length > 0 && visible)
 
   _handleDragUp: =>
     @dragging = false
