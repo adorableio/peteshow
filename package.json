@@ -23,15 +23,13 @@
   },
   "scripts": {
     "pretest": "scripts/compile.sh",
-    "test": "node_modules/.bin/mocha test/simple_nav_test.coffee --opts test/mocha.opts --recursive",
     "posttest": "scripts/cleanup.sh",
     "prebuild": "scripts/cleanup.sh",
     "build": "scripts/compile.sh",
     "postbuild": "scripts/cleanup.sh",
     "prepublish": "scripts/compile.sh",
     "postpublish": "scripts/cleanup.sh",
-    "start": "node_modules/.bin/nodemon start.coffee",
-    "watch": "node_modules/.bin/coffee --watch --output . --bare --compile index.coffee"
+    "start": "node_modules/.bin/nodemon start.coffee"
   },
   "licenses": [
     {
