@@ -88,18 +88,26 @@ gulp.task('test-sync', function() {
 //
 // css
 gulp.task('css', function() {
-  return gulp.src(paths.input.css)
+  gulp.src(paths.input.css)
     .pipe(plumber())
-    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(sass()
       .on('error', gutil.log)
       .on('error', gutil.beep))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.output.css))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.output.css));
+
+  gulp.src(paths.input.css)
+    .pipe(plumber())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sass()
+      .on('error', gutil.log)
+      .on('error', gutil.beep))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss()
       .on('error', gutil.log)
       .on('error', gutil.beep))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.css));
 });
 
