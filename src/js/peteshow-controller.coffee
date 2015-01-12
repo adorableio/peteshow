@@ -1,5 +1,4 @@
 _ = require('underscore')
-rules   = require('./peteshow-rules')
 
 class PeteshowController
   fillOutForms: =>
@@ -13,8 +12,7 @@ class PeteshowController
 
   fillInputs: ->
     console.log('PeteshowController::fillInputs')
-    _rules = _.defaults(Peteshow.options.rules, rules)
-    for element, rule of _rules
+    for element, rule of Peteshow.options.rules
       $(element).val(rule)
 
   fillCheckboxes: (i, v) ->
