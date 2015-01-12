@@ -97,7 +97,7 @@ gulp.task('css', function() {
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.css));
 
-  gulp.src(paths.input.css)
+  return gulp.src(paths.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(sass()
