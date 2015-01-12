@@ -117,19 +117,30 @@ gulp.task('js', function() {
     .on('error', gutil.log)
     .on('error', gutil.beep);
 
-  return jsStream
+  // standard code
+  jsStream
     .pipe(plumber())
     .pipe(source(paths.input.js.src[0]))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(rename('peteshow.js'))
-    .pipe(gulp.dest(paths.output.js))
-    .pipe(rename({suffix:'.min'}))
-    .pipe(uglify()
-      .on('error', gutil.log)
-      .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.js));
+
+  // minified code
+  jsStream
+    .pipe(plumber())
+    .pipe(source(paths.input.js.src[0]))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify({ compress: { negate_iife: false }})
+      .on('error', gutil.log)
+      .on('error', gutil.beep))
+    .pipe(rename('peteshow.min.js'))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.output.js));
+
+  return jsStream;
 });
 
 //
