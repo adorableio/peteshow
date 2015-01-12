@@ -1,47 +1,28 @@
+_ = require('underscore')
 rules   = require('./peteshow-rules')
 
-module.exports =
+class PeteshowController
   fillOutForms: =>
     console.log('PeteshowController::fillOutForms')
+    @fillRadioButtons($('input:radio'))
 
-    $('input:checkbox').each(@fillCheckboxes)
-    $('input:radio').each(@fillRadioButtons)
-    $('select').each(@fillSelectBoxes)
-
-    # force rules (for hidden fields)
-    # for element, value of _options.force
-    #   $(element)
-    #     .filterFields()
-    #     .val(if $.isFunction(v) then v() else v)
-
-    #   $(element).blur() if (_options.blur)
-
-    # # fill out fields with rules
-    # for element, v of rules
-    #   $(element)
-    #     .filter(':visible')
-    #     .filterFields()
-    #     .val(if $.isFunction(v) then v() else v)
-
-    #   $(element).blur() if (_options.blur)
-
-    # # special rules
-    # _options.special()
-
-    # # localstorage functionality
-    # reuseLocalStorage()
-
-  fillOutFormsAndSubmit: -> console.log('PeteshowController::fillOutFormsAndSubmit')
+  fillOutFormsAndSubmit: ->
+    console.log('PeteshowController::fillOutFormsAndSubmit')
 
   fillCheckboxes: (i, v) ->
     console.log i, v
 
-  fillRadioButtons: (i, v) ->
-    console.log i, v
-    # $(radios[Math.floor(Math.random() * radios.length)])
+  fillRadioButtons: ($radioButtonEls) ->
+    if $radioButtonEls.length > 0
+      radioButtonNames = _.uniq($radioButtonEls.map (i, $btn) -> $btn.name)
+
+      for name in radioButtonNames
+        $els = $("input:radio[name='#{name}']")
+        randomIndex = Math.floor(Math.random() * $els.length)
+        $el = $els.eq(randomIndex)
+        $el.prop('checked', true)
 
   fillSelectBoxes: (i, v) ->
     console.log i, v
-    #   .filterFields()
-    #   .prop('checked', true)
-    #   .change()
+
+module.exports = new PeteshowController()
