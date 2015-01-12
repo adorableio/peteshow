@@ -1,7 +1,6 @@
 {
   "ext": ".coffee",
   "watch": [
-    "src/**/*",
     "test/test_server.coffee"
   ],
   "ignore": [
