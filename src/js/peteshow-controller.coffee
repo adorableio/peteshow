@@ -8,6 +8,7 @@ class PeteshowController
     @fillInputs()
     @fillRadioButtons($('input:radio'))
     @fillCheckboxes($('input:checkbox'))
+    @fillSelectBoxes($('select'))
 
   fillOutFormsAndSubmit: =>
     cs.log('PeteshowController::fillOutFormsAndSubmit')
@@ -51,8 +52,24 @@ class PeteshowController
         .prop('checked', true)
         .change()
 
-  fillSelectBoxes: (i, v) ->
+  fillSelectBoxes: ($inputs) ->
     cs.log('PeteshowController::fillSelectBoxes')
-    cs.log i, v
+
+    for el in $inputs
+      selectOptions = $(el).find("option")
+
+      filters = Peteshow.options.filter .toString() .replace(new RegExp(",", "g"), "|")
+      filterRegex = new RegExp("other|select" + (if filters is "" then "" else "|" + filters), "gi")
+      filteredOptions = []
+
+      $.each selectOptions, (e) ->
+        value = $(this).val()
+        filteredOptions.push value if not value.match(filterRegex)? and value isnt ""
+
+      randomIndex = Math.floor(Math.random() * filteredOptions.length)
+
+      $(el)
+        .val(filteredOptions[randomIndex])
+        .change()
 
 module.exports = new PeteshowController()
