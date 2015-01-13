@@ -58,7 +58,7 @@ class PeteshowController
     for el in $inputs
       selectOptions = $(el).find("option")
 
-      filters = Peteshow.options.filter .toString() .replace(new RegExp(",", "g"), "|")
+      filters = Peteshow.options.filter.toString().replace(new RegExp(",", "g"), "|")
       filterRegex = new RegExp("other|select" + (if filters is "" then "" else "|" + filters), "gi")
       filteredOptions = []
 
