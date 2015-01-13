@@ -56,15 +56,17 @@ class PeteshowController
     cs.log('PeteshowController::fillSelectBoxes')
 
     for el in $inputs
-      selectOptions = $(el).find("option")
+      $selectOptions = $(el).find('option')
 
-      filters = Peteshow.options.filter.toString().replace(new RegExp(",", "g"), "|")
-      filterRegex = new RegExp("other|select" + (if filters is "" then "" else "|" + filters), "gi")
+      filters = Peteshow.options.filters
+        .toString()
+        .replace(new RegExp(',', 'g'), '|')
+
       filteredOptions = []
 
-      $.each selectOptions, (e) ->
+      $selectOptions.each (el) ->
         value = $(this).val()
-        filteredOptions.push value if not value.match(filterRegex)? and value isnt ""
+        filteredOptions.push value if not value.match(filters)? and value isnt ""
 
       randomIndex = Math.floor(Math.random() * filteredOptions.length)
 
