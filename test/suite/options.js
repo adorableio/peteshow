@@ -1,5 +1,5 @@
 module('options', {
-  setup: function() {
+  beforeEach: function() {
     Peteshow.init({
       form          : '#random',
       emailPrefix   : 'pete-',
@@ -7,7 +7,7 @@ module('options', {
       blur          : 'true'
     });
   },
-  teardown: function() {
+  afterEach: function() {
     Peteshow.destroy();
   }
 });
