@@ -22,7 +22,7 @@ Peteshow =
     cookies     : false
 
     rules       : require('./peteshow-rules')
-    filters     : ['other', 'select']
+    filters     : ['', 'other', 'select']
     ignore      : []
     force       : {}
     reuse       : {}
