@@ -25,7 +25,7 @@ describe 'PeteShow', ->
     done()
 
   it 'is accessible in javascript', (done) ->
-    browser.assert.evaluate('Peteshow')
+    browser.assert.global('Peteshow')
     done()
 
   it 'exists in the DOM', (done) ->
