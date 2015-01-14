@@ -197,17 +197,18 @@
     <script src='vendor/jquery.formatdatetime.js'></script>
     <script src='vendor/jquery.cookie.js'></script>
     <script src='javascripts/peteshow.js'></script>
-
     <script>
-      Peteshow.init({
-        cookies: true,
-        rules: {
-          "input[name*=middle_name]": Peteshow.random.name(),
-          "input[name*=custom_name]": 'Custom Name'
-        },
-        reuse: { 'input[name*=first_name]': '/tests' },
-        ignore : ['input[name=last_name]', '#qunit-modulefilter']
-      })
+      if ('<%= env %>' != 'test') {
+        Peteshow.init({
+          cookies: true,
+          rules: {
+            "input[name*=middle_name]": Peteshow.random.name(),
+            "input[name*=custom_name]": 'Custom Name'
+          },
+          reuse: { 'input[name*=first_name]': '/tests' },
+          ignore : ['input[name=last_name]', '#qunit-modulefilter']
+        });
+      }
     </script>
   </body>
 </html>

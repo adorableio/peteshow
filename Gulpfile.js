@@ -42,8 +42,7 @@ var paths = {
     testSync: {
       src: [
         path.join(BASE_TEST_PATH, 'suite', '*.js'),
-        path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
-        path.join(BASE_TEST_PATH, '*.html')
+        path.join(BASE_TEST_PATH, 'vendor', '**', '*')
       ],
       vendor: [
         path.join(__dirname, 'node_modules', 'qunitjs', 'qunit', '*'),
@@ -70,8 +69,7 @@ var paths = {
     ],
     testSync : [
       path.join(BASE_TEST_PATH, 'suite', '*.js'),
-      path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
-      path.join(BASE_TEST_PATH, '*.html')
+      path.join(BASE_TEST_PATH, 'vendor', '**', '*')
     ]
   },
 

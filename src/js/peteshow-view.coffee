@@ -113,7 +113,6 @@ class PeteshowView
   show: (active) ->
     if active == undefined
       active = !@_active
-    console.log "----->", active
 
     cs.debug('PeteshowView::show', active)
 
