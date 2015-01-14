@@ -1,7 +1,3 @@
-process.env.NODE_ENV = 'test'
-Browser = require('zombie')
-Server  = require('./test_server')
-
 describe 'PeteShow', ->
   browser = null
   before (done) ->
