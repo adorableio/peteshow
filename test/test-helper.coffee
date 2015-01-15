@@ -34,7 +34,7 @@ assertMatch = (actual, expected, message) ->
 Browser.Assert.prototype.inputFirst = (selector, expected, message) ->
   expected = null if arguments.length == 1
   element = @browser.query(selector)
-  assert element, "Expected selector '#{selector}' to return one or more elements"
+  assert element, "Expected selector '#{selector}' to return an element"
 
   value = element.value.replace(/(\r\n|\n|\r)/gm,"")
   assertMatch value, expected, message
