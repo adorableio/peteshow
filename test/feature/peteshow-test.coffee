@@ -32,25 +32,25 @@ describe 'PeteShow', ->
 
 
     fields =
-      'input[type=password]'                        : 'password'
-      'input[type=text]'                            : REGEX.TEXT
-      'input[type=email], input[name*=email]'       : REGEX.EMAIL
-      'input[name*=number], input[type=number]'     : REGEX.NUMBER
-      'input[type=date]'                            : REGEX.DATE
-      'input[name*=first_name]'                     : REGEX.TEXT
-      'input[name*=last_name]'                      : REGEX.TEXT
-      'input[name*=company]'                        : REGEX.TEXT
-      'input[name*=street], input[name*=line1]'     : REGEX.TEXT
-      'input[name*=line2], input[name*=suite]'      : REGEX.TEXT
-      'input[name*=city]'                           : REGEX.TEXT
-      'input[name*=state]'                          : REGEX.TEXT
-      'input[name*=job_title]'                      : REGEX.TEXT
-      'input[name*=intent]'                         : REGEX.TEXT
-      'input[name*=income], input[name*=amount]'    : REGEX.NUMBER
-      'input[name*=branch], input[name*=routing]'   : '400001'
-      'input[name*=card_type_cd]'                   : '001'
-      'input[name*=card_number]'                    : '4111111111111111'
-      'input[name*=cvv]'                            : '123'
+      'input[type=password]'                      : 'password'
+      'input[type=text]'                          : REGEX.TEXT
+      'input[type=email], input[name*=email]'     : REGEX.EMAIL
+      'input[name*=number], input[type=number]'   : REGEX.NUMBER
+      'input[type=date]'                          : REGEX.DATE
+      'input[name*=first_name]'                   : REGEX.TEXT
+      'input[name*=last_name]'                    : REGEX.TEXT
+      'input[name*=company]'                      : REGEX.TEXT
+      'input[name*=street], input[name*=line1]'   : REGEX.TEXT
+      'input[name*=line2], input[name*=suite]'    : REGEX.TEXT
+      'input[name*=city]'                         : REGEX.TEXT
+      'input[name*=state]'                        : REGEX.TEXT
+      'input[name*=job_title]'                    : REGEX.TEXT
+      'input[name*=intent]'                       : REGEX.TEXT
+      'input[name*=income], input[name*=amount]'  : REGEX.NUMBER
+      'input[name*=branch], input[name*=routing]' : '400001'
+      'input[name*=card_type_cd]'                 : '001'
+      'input[name*=card_number]'                  : '4111111111111111'
+      'input[name*=cvv]'                          : '123'
 
     for element, match of fields
       browser.assert.inputFirst(element, match)
