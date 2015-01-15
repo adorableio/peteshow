@@ -14,7 +14,7 @@ describe 'Hotkeys', ->
     done()
 
   it 'should fill out forms when F is pressed', (done) ->
-    browser.assert.evaluate("Peteshow.show(true)")
+    browser.evaluate("Peteshow.show(true)")
     browser.key('down', 70)
     browser.assert.inputFirst("input", /^.+$/)
     done()
