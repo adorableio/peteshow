@@ -28,6 +28,12 @@ describe 'PeteShow', ->
     browser.assert.global('Peteshow')
     done()
 
+  it 'shows peteshow when #peteshow-toggle is clicked', (done) ->
+    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.fire("#peteshow-toggle", 'click')
+    browser.assert.hasClass('#peteshow', 'active')
+    done()
+
   it 'shows peteshow with Peteshow.show(true)', (done) ->
     browser.assert.hasNoClass('#peteshow', 'active')
     browser.evaluate("Peteshow.show(true)")
