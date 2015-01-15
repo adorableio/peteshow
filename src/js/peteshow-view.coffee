@@ -110,7 +110,7 @@ class PeteshowView
     @_createEvents(@_events)
     @show(@_active)
 
-  show: (active) ->
+  show: (active) =>
     if active == undefined
       active = !@_active
 
@@ -122,7 +122,7 @@ class PeteshowView
     store.set('active', active)
     @_active = active
 
-  hide: ->
+  hide: =>
     cs.log('PeteshowView::hide')
     $('#peteshow').show(false)
 
