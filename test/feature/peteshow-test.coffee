@@ -10,7 +10,7 @@ describe 'PeteShow', ->
             'input[name*=custom_name]'      : function() { return 'Custom'; },
             'input[name*=boolean_checkbox]' : true
           },
-          ignore : ['input[name=phone]', '#qunit-modulefilter']
+          ignore : ['input[name=ignore_me]', '#qunit-modulefilter']
         });"
         browser.evaluate("Peteshow.store.clear()")
         browser.evaluate(initPeteshow)
@@ -44,33 +44,44 @@ describe 'PeteShow', ->
     browser.assert.evaluate('Peteshow.fillOutForms()')
 
     fields =
-      'input[type=password]'                      : 'password'
-      'input[type=text]'                          : REGEX.TEXT
-      'input[type=email], input[name*=email]'     : REGEX.EMAIL
-      'input[name*=number], input[type=number]'   : REGEX.NUMBER
-      'input[type=date]'                          : REGEX.DATE
-      'input[name*=first_name]'                   : REGEX.TEXT
-      'input[name*=last_name]'                    : REGEX.TEXT
-      'input[name*=company]'                      : REGEX.TEXT
-      'input[name*=street], input[name*=line1]'   : REGEX.TEXT
-      'input[name*=line2], input[name*=suite]'    : REGEX.TEXT
-      'input[name*=city]'                         : REGEX.TEXT
-      'input[name*=state]'                        : REGEX.TEXT
-      'input[name*=job_title]'                    : REGEX.TEXT
-      'input[name*=intent]'                       : REGEX.TEXT
-      'input[name*=income], input[name*=amount]'  : REGEX.NUMBER
-      'input[name*=branch], input[name*=routing]' : '400001'
-      'input[name*=card_type_cd]'                 : '001'
-      'input[name*=card_number]'                  : '4111111111111111'
-      'input[name*=cvv]'                          : '123'
+      'input[type=password]'      : 'password'
+      'input[type=text]'          : REGEX.TEXT
+      'input[type=email]'         : REGEX.EMAIL
+      'input[type=number]'        : REGEX.TEXT
+      'input[type=date]'          : REGEX.DATE
+      'input[type=tel]'           : REGEX.PHONE
+      'input[name*=decimal]'      : REGEX.NUMBER
+      'input[name*=first_name]'   : REGEX.TEXT
+      'input[name*=last_name]'    : REGEX.TEXT
+      'input[name*=company]'      : REGEX.TEXT
+      'input[name*=street]'       : REGEX.TEXT
+      'input[name*=line1]'        : REGEX.TEXT
+      'input[name*=line2]'        : REGEX.TEXT
+      'input[name*=suite]'        : REGEX.TEXT
+      'input[name*=city]'         : REGEX.TEXT
+      'input[name*=county]'       : REGEX.TEXT
+      'input[name*=zip]'          : REGEX.ZIP_CODE
+      'input[name*=postal]'       : REGEX.ZIP_CODE
+      'input[name*=state]'        : REGEX.TEXT
+      'input[name*=job_title]'    : REGEX.TEXT
+      'input[name*=intent]'       : REGEX.TEXT
+      'input[name*=income]'       : REGEX.NUMBER
+      'input[name*=amount]'       : REGEX.NUMBER
+      'input[name*=branch]'       : '400001'
+      'input[name*=routing]'      : '400001'
+      'input[name*=card_type_cd]' : '001'
+      'input[name*=card_number]'  : '4111111111111111'
+      'input[name*=cvv]'          : '123'
 
     for element, match of fields
-      browser.assert.inputFirst(element, match)
+      # message = "#{element} failed"
+      message = message || null
+      browser.assert.inputFirst(element, match, message)
     done()
 
   it 'should ignore fields', (done) ->
     browser.assert.evaluate('Peteshow.fillOutForms()')
-    browser.assert.inputFirst('input[name=phone]', "")
+    browser.assert.inputFirst('input[name=ignore_me]', "")
     done()
 
   it 'should have valid values from plugin after filling out forms', (done) ->
