@@ -8,6 +8,7 @@ class PeteshowController
     @fillInputs()
     @fillRadioButtons($('input:radio'))
     @fillCheckboxes($('input:checkbox'))
+    @fillSelectBoxes($('select'))
 
   fillOutFormsAndSubmit: =>
     cs.log('PeteshowController::fillOutFormsAndSubmit')
@@ -51,8 +52,19 @@ class PeteshowController
         .prop('checked', true)
         .change()
 
-  fillSelectBoxes: (i, v) ->
+  fillSelectBoxes: ($inputs) ->
     cs.log('PeteshowController::fillSelectBoxes')
-    cs.log i, v
+
+    for el in $inputs
+      selectOptions = $.makeArray($(el).find('option'))
+      values = selectOptions.map (el) -> $(el).val()
+      values = _.difference(values, Peteshow.options.filters)
+
+      randomIndex = Math.floor(Math.random() * values.length)
+      value = values[randomIndex]
+
+      $(el)
+        .val(value)
+        .change()
 
 module.exports = new PeteshowController()
