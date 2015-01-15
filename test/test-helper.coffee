@@ -1,11 +1,9 @@
 process.env.NODE_ENV = 'test'
 
 { isRegExp }   = require("util")
-chai           = require('chai')
 assert         = require("assert")
 global.Server  = require('./test-server')
 global.Browser = require('zombie')
-global.expect  = chai.expect
 
 server         = new Server({port: 3017})
 global.browser = browser = new Browser({ site: 'http://localhost:3017' })

@@ -17,7 +17,7 @@ describe 'PeteShow', ->
         done()
 
   it 'is running the test server', (done) ->
-    expect browser.success
+    browser.assert.success()
     done()
 
   it 'exists in the DOM', (done) ->
