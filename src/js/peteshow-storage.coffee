@@ -15,3 +15,8 @@ module.exports =
     _data = store.get('peteshow') || {}
     _data[key] = data
     store.set('peteshow', _data)
+
+  clear: ->
+    cs.log('PeteshowStorage::clear')
+    store.remove('peteshow')
+

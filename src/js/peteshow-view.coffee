@@ -61,7 +61,7 @@ class PeteshowView
     @show() if (e.keyCode == 192)
 
     action  = $("[data-command='#{code}']")
-    visible = @$tools.is(':visible')
+    visible = @$peteshow.is('.active')
 
     action.click() if (action.length > 0 && visible)
 

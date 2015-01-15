@@ -12,6 +12,7 @@ describe 'PeteShow', ->
           },
           ignore : ['input[name=phone]', '#qunit-modulefilter']
         });"
+        browser.evaluate("Peteshow.store.clear()")
         browser.evaluate(initPeteshow)
         done()
 
@@ -19,17 +20,28 @@ describe 'PeteShow', ->
     expect browser.success
     done()
 
-  it 'is accessible in javascript', (done) ->
-    browser.assert.global('Peteshow')
-    done()
-
   it 'exists in the DOM', (done) ->
     browser.assert.element('#peteshow')
     done()
 
+  it 'is accessible in javascript', (done) ->
+    browser.assert.global('Peteshow')
+    done()
+
+  it 'shows peteshow with Peteshow.show(true)', (done) ->
+    browser.assert.hasNoClass('#peteshow', 'active')
+    browser.evaluate("Peteshow.show(true)")
+    browser.assert.hasClass('#peteshow', 'active')
+    done()
+
+  it 'hides peteshow with Peteshow.show(false)', (done) ->
+    browser.evaluate("Peteshow.show(true)")
+    browser.evaluate("Peteshow.show(false)")
+    browser.assert.hasNoClass('#peteshow', 'active')
+    done()
+
   it 'should have valid values', (done) ->
     browser.assert.evaluate('Peteshow.fillOutForms()')
-
 
     fields =
       'input[type=password]'                      : 'password'
