@@ -4,7 +4,7 @@ dotenv     = require('dotenv')
 dotenv.load()
 
 console.log("[NODE_ENV] " + process.env.NODE_ENV)
-runCommand("coffee", ['test/test_server.coffee'])
+runCommand("coffee", ['test/test-server.coffee'])
 
 if (process.env.NODE_ENV == "development")
   runCommand("gulp", ['watch'])
