@@ -38,3 +38,15 @@ Browser.Assert.prototype.inputFirst = (selector, expected, message) ->
 
   value = element.value.replace(/(\r\n|\n|\r)/gm,"")
   assertMatch value, expected, message
+
+# Key event method
+Browser.prototype.key = (keyAction, keyCode, callback)->
+  assert @window, "No window open"
+  event = @window.document.createEvent("KeyboardEvent")
+  event.initEvent("key#{keyAction}", true, true)
+  event.which = keyCode
+  event.keyCode = keyCode
+  @window.document.dispatchEvent(event)
+  # Only run wait if intended to
+  unless callback == false
+    return @wait(callback)
