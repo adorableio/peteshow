@@ -89,11 +89,14 @@ gulp.task('test', function() {
 
 // test : synchronize
 gulp.task('test-sync', function() {
-  gulp.src(paths.input.testSync.src, { base: BASE_TEST_PATH })
+  return gulp.src(paths.input.testSync.src, { base: BASE_TEST_PATH })
     .pipe(gulp.dest(paths.output.testSync)
       .on('error', gutil.log)
       .on('error', gutil.beep));
 
+});
+// vendor
+gulp.task('vendor', function() {
   return gulp.src(paths.input.testSync.vendor)
     .pipe(plumber())
     .pipe(flatten())
