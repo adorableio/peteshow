@@ -1,4 +1,5 @@
 echo 'Synchronzing test files...'
+mkdir .generated
 rsync --archive \
       --recursive \
       --out-format='%n%L' \
@@ -11,6 +12,7 @@ echo 'Creating lib/assets folder...'
 mkdir -pv lib/assets && echo 'Done!\n'
 
 echo 'Copying assets into the lib folder...'
+mkdir -p lib/assets
 rsync --archive \
       --recursive \
       --out-format='%n%L' \
