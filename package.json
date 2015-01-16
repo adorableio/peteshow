@@ -23,10 +23,8 @@
   },
   "scripts": {
     "pretest": "scripts/compile.sh",
+    "test": "./node_modules/.bin/mocha",
     "posttest": "scripts/cleanup.sh",
-    "prebuild": "scripts/cleanup.sh",
-    "build": "scripts/compile.sh",
-    "postbuild": "scripts/cleanup.sh",
     "prepublish": "scripts/compile.sh",
     "postpublish": "scripts/cleanup.sh",
     "start": "node_modules/.bin/nodemon start.coffee"
@@ -41,6 +39,7 @@
   "devDependencies": {
     "browserify": "^6.2.0",
     "calmsoul": "0.0.2",
+    "coffee-script": "^1.8.0",
     "coffeeify": "^1.0.0",
     "del": "^0.1.3",
     "dotenv": "^0.4.0",
