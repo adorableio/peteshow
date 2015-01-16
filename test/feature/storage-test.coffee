@@ -3,7 +3,7 @@ describe 'Storage', ->
   beforeEach (done) ->
     browser.visit('/')
       .then ->
-        initPeteshow = "Peteshow.init()"
+        initPeteshow = "Peteshow.init({ });"
         browser.evaluate(initPeteshow)
         done()
 

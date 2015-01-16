@@ -26,6 +26,7 @@ Peteshow =
     ignore      : []
     force       : {}
     reuse       : {}
+    saved       : {}
     commands    : ''
     special     : null
     events      : null

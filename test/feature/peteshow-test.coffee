@@ -10,7 +10,11 @@ describe 'PeteShow', ->
             'input[name*=custom_name]'      : function() { return 'Custom'; },
             'input[name*=boolean_checkbox]' : true
           },
-          ignore : ['input[name=ignore_me]', '#qunit-modulefilter']
+          ignore : ['input[name=ignore_me]', '#qunit-modulefilter'],
+          saved: {
+            'input[name=saved]' : '/tests',
+            'input[name=saved_2]' : '/tests_2'
+            }
         });"
         browser.evaluate("Peteshow.store.clear()")
         browser.evaluate(initPeteshow)
@@ -100,4 +104,10 @@ describe 'PeteShow', ->
     browser.assert.evaluate('Peteshow.fillOutForms()')
     browser.assert.evaluate("$('input[name=boolean_checkbox]').val()", 1)
     browser.assert.evaluate("$('input[name=boolean_checkbox]').prop('checked')", true)
+    done()
+
+  it 'uses fields set to save in the init', (done) ->
+    browser.evaluate("Peteshow.fillOutForms()")
+    browser.assert.input('input[name=saved]', '/tests')
+    browser.assert.input('input[name=saved_2]', '/tests_2')
     done()
