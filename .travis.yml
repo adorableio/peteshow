@@ -9,5 +9,8 @@ matrix:
     - node_js: "0.11"
 
 install:
-  - npm install contextify
+  # There's a bug that keeps node-gyp from building binaries
+  # that are sub-dependencies of packages in package.json.
+  # This is a temporary fix to install those packages correctly.
+  - scripts/install_dependencies.sh
   - npm install --ignore-scripts
