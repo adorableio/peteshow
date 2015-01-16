@@ -1,6 +1,5 @@
 _     = require('lodash')
 cs    = require('calmsoul')
-store = require('./peteshow-storage')
 
 class PeteshowController
   fillOutForms: =>
