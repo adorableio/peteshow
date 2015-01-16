@@ -13,7 +13,7 @@ var browserify   = require('browserify'),
     qunit        = require('gulp-qunit'),
     rename       = require('gulp-rename'),
     runSequence  = require('run-sequence'),
-    sass         = require('gulp-sass'),
+    stylus       = require('gulp-stylus'),
     source       = require('vinyl-source-stream'),
     sourcemaps   = require('gulp-sourcemaps'),
     uglify       = require('gulp-uglify'),
@@ -29,7 +29,7 @@ var BASE_SRC_PATH       = path.join(__dirname, 'src'),
 // Task paths
 var paths = {
   input: {
-    css: path.join(BASE_CSS_PATH, 'peteshow.scss'),
+    css: path.join(BASE_CSS_PATH, 'peteshow.styl'),
 
     js: {
       vendor: [ ],
@@ -62,7 +62,7 @@ var paths = {
   },
 
   watch: {
-    css : path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
+    css : path.join(BASE_SRC_PATH, 'css', '**', '*.styl'),
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
       path.join(BASE_SRC_PATH, 'templates', '*.hbs')
@@ -109,7 +109,7 @@ gulp.task('css', function() {
   gulp.src(paths.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sass()
+    .pipe(stylus()
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
@@ -118,7 +118,7 @@ gulp.task('css', function() {
   return gulp.src(paths.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sass()
+    .pipe(stylus()
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(rename({suffix: '.min'}))
