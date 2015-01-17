@@ -26,7 +26,7 @@ module.exports =
 
     phoneNumber: (n = 5) ->
       cs.log('PeteshowHelpers::phoneNumber')
-      Faker.phone.phoneNumberFormat(1)
+      Faker.phone.phoneNumberFormat(n)
 
     # People
     #

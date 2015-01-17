@@ -1,5 +1,5 @@
-_  = require('lodash')
-cs = require('calmsoul')
+_     = require('lodash')
+cs    = require('calmsoul')
 
 class PeteshowController
   fillOutForms: =>
@@ -19,9 +19,17 @@ class PeteshowController
 
   fillInputs: ->
     cs.log('PeteshowController::fillInputs')
+    saved = Peteshow.options.saved
     for element, rule of Peteshow.options.rules
       value = if _.isFunction(rule) then rule() else rule
+
+      # Well, we've made it this far. Let's go ahead and fill this form out
       $(element).each (i, el) ->
+        # Restore saved fields values from the saved option
+        key = _.findKey(saved, (v, k) -> $(el).is(k))
+        if key != undefined
+          return $(el).val(saved[key])
+
         return if $(el).is(':checkbox')
         ignored = $(el).is(Peteshow.options.ignore.toString())
         return if ignored

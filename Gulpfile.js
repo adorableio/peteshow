@@ -13,7 +13,7 @@ var browserify   = require('browserify'),
     qunit        = require('gulp-qunit'),
     rename       = require('gulp-rename'),
     runSequence  = require('run-sequence'),
-    sass         = require('gulp-sass'),
+    stylus       = require('gulp-stylus'),
     source       = require('vinyl-source-stream'),
     sourcemaps   = require('gulp-sourcemaps'),
     uglify       = require('gulp-uglify'),
@@ -29,7 +29,7 @@ var BASE_SRC_PATH       = path.join(__dirname, 'src'),
 // Task paths
 var paths = {
   input: {
-    css: path.join(BASE_CSS_PATH, 'peteshow.scss'),
+    css: path.join(BASE_CSS_PATH, 'peteshow.styl'),
 
     js: {
       vendor: [ ],
@@ -42,8 +42,7 @@ var paths = {
     testSync: {
       src: [
         path.join(BASE_TEST_PATH, 'suite', '*.js'),
-        path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
-        path.join(BASE_TEST_PATH, '*.html')
+        path.join(BASE_TEST_PATH, 'vendor', '**', '*')
       ],
       vendor: [
         path.join(__dirname, 'node_modules', 'qunitjs', 'qunit', '*'),
@@ -63,15 +62,14 @@ var paths = {
   },
 
   watch: {
-    css : path.join(BASE_SRC_PATH, 'css', '**', '*.scss'),
+    css : path.join(BASE_SRC_PATH, 'css', '**', '*.styl'),
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
       path.join(BASE_SRC_PATH, 'templates', '*.hbs')
     ],
     testSync : [
       path.join(BASE_TEST_PATH, 'suite', '*.js'),
-      path.join(BASE_TEST_PATH, 'vendor', '**', '*'),
-      path.join(BASE_TEST_PATH, '*.html')
+      path.join(BASE_TEST_PATH, 'vendor', '**', '*')
     ]
   },
 
@@ -91,11 +89,14 @@ gulp.task('test', function() {
 
 // test : synchronize
 gulp.task('test-sync', function() {
-  gulp.src(paths.input.testSync.src, { base: BASE_TEST_PATH })
+  return gulp.src(paths.input.testSync.src, { base: BASE_TEST_PATH })
     .pipe(gulp.dest(paths.output.testSync)
       .on('error', gutil.log)
       .on('error', gutil.beep));
 
+});
+// vendor
+gulp.task('vendor', function() {
   return gulp.src(paths.input.testSync.vendor)
     .pipe(plumber())
     .pipe(flatten())
@@ -108,7 +109,7 @@ gulp.task('css', function() {
   gulp.src(paths.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sass()
+    .pipe(stylus()
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(sourcemaps.write('./'))
@@ -117,7 +118,7 @@ gulp.task('css', function() {
   return gulp.src(paths.input.css)
     .pipe(plumber())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(sass()
+    .pipe(stylus()
       .on('error', gutil.log)
       .on('error', gutil.beep))
     .pipe(rename({suffix: '.min'}))
@@ -175,6 +176,14 @@ gulp.task('clean', function() {
 });
 
 //
+// Server
+gulp.task('server', ['watch'], function() {
+  coffee = require('coffee-script/register');
+  server = require('./test/test-server');
+  server({port: 3002});
+});
+
+//
 // Watch
 gulp.task('watch', ['pre-watch'], function() {
   watch(paths.watch.css, function() {
@@ -191,11 +200,11 @@ gulp.task('watch', ['pre-watch'], function() {
 });
 
 gulp.task('pre-watch', function(callback) {
-  runSequence('clean', 'css', 'js', 'test-sync', callback);
+  runSequence('clean', 'css', 'js', 'vendor', 'test-sync', callback);
 });
 
 //
 // Default
 gulp.task('default', function(callback) {
-  runSequence('clean', 'css', 'js', 'test-sync', 'test', callback);
+  runSequence('clean', 'css', 'js', 'vendor', 'test-sync', 'test', callback);
 });

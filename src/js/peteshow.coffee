@@ -5,7 +5,7 @@ cs         = require('calmsoul')
 
 cs.set
   "log"   : false
-  "debug" : true
+  "debug" : false
   "info"  : true
 
 Peteshow =
@@ -26,6 +26,7 @@ Peteshow =
     ignore      : []
     force       : {}
     reuse       : {}
+    saved       : {}
     commands    : ''
     special     : null
     events      : null

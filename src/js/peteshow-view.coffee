@@ -61,7 +61,7 @@ class PeteshowView
     @show() if (e.keyCode == 192)
 
     action  = $("[data-command='#{code}']")
-    visible = @$tools.is(':visible')
+    visible = @$peteshow.is('.active')
 
     action.click() if (action.length > 0 && visible)
 
@@ -110,10 +110,9 @@ class PeteshowView
     @_createEvents(@_events)
     @show(@_active)
 
-  show: (active) ->
+  show: (active) =>
     if active == undefined
       active = !@_active
-    console.log "----->", active
 
     cs.debug('PeteshowView::show', active)
 
@@ -123,7 +122,7 @@ class PeteshowView
     store.set('active', active)
     @_active = active
 
-  hide: ->
+  hide: =>
     cs.log('PeteshowView::hide')
     $('#peteshow').show(false)
 
