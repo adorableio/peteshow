@@ -2,27 +2,24 @@ express = require('express')
 
 app = express()
 app.use(express.static(__dirname + '/../.generated/'))
+app.set('view engine', 'ejs')
+app.set('views', __dirname)
 
-class Server
-  defaults:
-    host: 'http://localhost'
-    port: 3002
+defaults =
+  host: 'http://localhost'
+  port: 3002
 
-  options: {}
+server = (options = {}) ->
 
-  constructor: (options = {}) ->
-    app.set('view engine', 'ejs')
-    app.set('views', __dirname)
-    app.get '/', (req, res) ->
-      res.render('index', {env: process.env.NODE_ENV})
+  port = options.port || defaults.port
+  host = options.host || defaults.host
 
-    @options.port = options.port || @defaults.port
-    @options.host = options.host || @defaults.host
-    app.listen(@options.port)
+  env = process.env.NODE_ENV
 
-    if (!isTest)
-      console.log("[TEST_SERVER] Server running at: #{@options.host}/#{@options.port}")
+  app.get '/', (req, res) -> res.render('index', {env: env})
+  app.listen(port)
 
-isTest = (process.env.NODE_ENV == 'test')
-new Server() if (!isTest)
-module.exports = Server
+  if (env != 'test')
+    console.log("[TEST_SERVER] Server running at: #{host}:#{port}")
+
+module.exports = server

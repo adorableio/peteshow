@@ -176,6 +176,14 @@ gulp.task('clean', function() {
 });
 
 //
+// Server
+gulp.task('server', ['watch'], function() {
+  coffee = require('coffee-script/register');
+  server = require('./test/test-server');
+  server({port: 3002});
+});
+
+//
 // Watch
 gulp.task('watch', ['pre-watch'], function() {
   watch(paths.watch.css, function() {
@@ -192,11 +200,11 @@ gulp.task('watch', ['pre-watch'], function() {
 });
 
 gulp.task('pre-watch', function(callback) {
-  runSequence('clean', 'css', 'js', 'test-sync', callback);
+  runSequence('clean', 'css', 'js', 'vendor', 'test-sync', callback);
 });
 
 //
 // Default
 gulp.task('default', function(callback) {
-  runSequence('clean', 'css', 'js', 'test-sync', 'test', callback);
+  runSequence('clean', 'css', 'js', 'vendor', 'test-sync', 'test', callback);
 });
