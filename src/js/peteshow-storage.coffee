@@ -2,6 +2,7 @@
 store = require('store')
 cs    = require('calmsoul')
 _     = require('lodash')
+Session = require('./models/session')
 
 unless store.get('peteshow')
   store.set('peteshow', {})
@@ -37,6 +38,14 @@ module.exports =
 
     storedData[key] = _data
     store.set('peteshow', storedData)
+
+  sessions: ->
+    sessions = @get('sessions') || []
+
+  addSession: (data) ->
+    data = {sessions: @sessions()}
+    data.sessions.push(new Session(data))
+    @set('peteshow', data)
 
 
   clear: ->
