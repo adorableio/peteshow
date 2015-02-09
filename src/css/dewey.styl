@@ -7,7 +7,7 @@ $font-size = 13px;
 
 $collapsed-width = 60px;
 
-$active-width = 200px;
+$open = 200px;
 
 $breakpoint-max-width = 768px;
 
@@ -26,7 +26,7 @@ links {
   }
 }
 
-#peteshow {
+#dewey {
   @extends $clear-text-decoration;
   background-color: $primary-background-color;
   color: $font-color;
@@ -46,7 +46,7 @@ links {
     @extends $clear-text-decoration;
   }
 
-  #peteshow-drag-handle {
+  #dewey-drag-handle {
     background: blue;
     height: 20px;
     position: absolute;
@@ -55,7 +55,7 @@ links {
     z-index: 3000;
   }
 
-  #peteshow-toggle {
+  #dewey-toggle {
     @extends $clear-text-decoration;
     color: #fff;
     font-weight: bold;
@@ -84,10 +84,10 @@ links {
     &:before { content: 'PS'; }
   }
 
-  &.active {
-    width: $active-width;
+  &.open {
+    width: $open;
 
-    #peteshow-toggle {
+    #dewey-toggle {
       i {
         border-left: 0;
         border-right-color: #fff;
@@ -96,11 +96,11 @@ links {
         right: 10px;
       }
 
-      &:before { content: 'PETESHOW'; }
+      &:before { content: 'DEWEY'; }
     }
   }
 
-  #peteshow-tools {
+  #dewey-tools {
     display: none;
     color: #fff;
     transition: all 1.0s ease;
@@ -185,13 +185,13 @@ links {
 }
 
 @media (max-width: $breakpoint-max-width) {
-  #peteshow {
+  #dewey {
     position: absolute;
     top: 0;
     left: 0 !important;
     right: 0 !important;
     width: 100%;
 
-    &.active { width: 100%; }
+    &.open { width: 100%; }
   }
 }

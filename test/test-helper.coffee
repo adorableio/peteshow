@@ -5,6 +5,8 @@ assert         = require("assert")
 global.Server  = require('./test-server')
 global.Browser = require('zombie')
 
+global.context = global.describe
+
 server         = new Server({port: 3017})
 global.browser = browser = new Browser({ site: 'http://localhost:3017' })
 

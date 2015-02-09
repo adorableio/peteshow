@@ -29,13 +29,13 @@ var BASE_SRC_PATH       = path.join(__dirname, 'src'),
 // Task paths
 var paths = {
   input: {
-    css: path.join(BASE_CSS_PATH, 'peteshow.styl'),
+    css: path.join(BASE_CSS_PATH, 'dewey.styl'),
 
     js: {
       vendor: [ ],
 
       src: [
-        path.join(BASE_JS_PATH, 'peteshow.coffee')
+        path.join(BASE_JS_PATH, 'dewey.coffee')
       ]
     },
 
@@ -65,6 +65,7 @@ var paths = {
     css : path.join(BASE_SRC_PATH, 'css', '**', '*.styl'),
     js  : [
       path.join(BASE_SRC_PATH, 'js', '*.coffee'),
+      path.join(BASE_SRC_PATH, 'js', '**', '*.coffee'),
       path.join(BASE_SRC_PATH, 'templates', '*.hbs')
     ],
     testSync : [
@@ -149,7 +150,7 @@ gulp.task('js', function() {
     .pipe(source(paths.input.js.src[0]))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(rename('peteshow.js'))
+    .pipe(rename('dewey.js'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.js));
 
@@ -162,7 +163,7 @@ gulp.task('js', function() {
     .pipe(uglify({ compress: { negate_iife: false }})
       .on('error', gutil.log)
       .on('error', gutil.beep))
-    .pipe(rename('peteshow.min.js'))
+    .pipe(rename('dewey.min.js'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.output.js));
 

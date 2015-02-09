@@ -11,80 +11,80 @@ randomString = (length, chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU
 module.exports =
   random:
     date: ->
-      cs.log('PeteshowHelpers::date')
+      cs.log('DeweyHelpers::date')
       moment(Faker.date.future(1)).format('YYYY-MM-DD')
 
     # General
     letters: (n = 8) ->
-      cs.log('PeteshowHelpers::letters')
+      cs.log('DeweyHelpers::letters')
       randomString(n)
 
     # Numbers
     number: (n = 8) ->
-      cs.log('PeteshowHelpers::number')
+      cs.log('DeweyHelpers::number')
       Faker.random.number({min: 0, max: n})
 
     phoneNumber: (n = 5) ->
-      cs.log('PeteshowHelpers::phoneNumber')
+      cs.log('DeweyHelpers::phoneNumber')
       Faker.phone.phoneNumberFormat(n)
 
     # People
     #
     name: ->
-      cs.log('PeteshowHelpers::firstName')
+      cs.log('DeweyHelpers::firstName')
       Faker.name.findName()
 
     firstName: ->
-      cs.log('PeteshowHelpers::firstName')
+      cs.log('DeweyHelpers::firstName')
       Faker.name.firstName()
 
     lastName: ->
-      cs.log('PeteshowHelpers::lastName')
+      cs.log('DeweyHelpers::lastName')
       Faker.name.lastName()
 
     companyName: ->
-      cs.log('PeteshowHelpers::companyName')
+      cs.log('DeweyHelpers::companyName')
       Faker.company.companyName()
 
     email: ->
-      cs.log('PeteshowHelpers::email')
+      cs.log('DeweyHelpers::email')
       Faker.internet.email()
 
     # Address
     #
     street: ->
-      cs.log('PeteshowHelpers::street')
+      cs.log('DeweyHelpers::street')
       Faker.address.streetAddress()
 
     secondary: ->
-      cs.log('PeteshowHelpers::secondary')
+      cs.log('DeweyHelpers::secondary')
       Faker.address.secondaryAddress()
 
     city: ->
-      cs.log('PeteshowHelpers::city')
+      cs.log('DeweyHelpers::city')
       Faker.address.city()
 
     county: ->
-      cs.log('PeteshowHelpers::county')
+      cs.log('DeweyHelpers::county')
       Faker.address.county()
 
     state: ->
-      cs.log('PeteshowHelpers::state')
+      cs.log('DeweyHelpers::state')
       Faker.address.state({full: true})
 
     stateAbbr: ->
-      cs.log('PeteshowHelpers::stateAbbr')
+      cs.log('DeweyHelpers::stateAbbr')
       Faker.address.stateAbbr()
 
     zipCode: (n = 5) ->
-      cs.log('PeteshowHelpers::zipCode')
+      cs.log('DeweyHelpers::zipCode')
       Faker.address.zipCode(n)
 
     # Lorem
     catchPhrase: (n = 4) ->
-      cs.log('PeteshowHelpers::catchPhrase')
+      cs.log('DeweyHelpers::catchPhrase')
       Faker.company.catchPhrase()
 
     sentences: (n = 5) ->
-      cs.log('PeteshowHelpers::sentences')
+      cs.log('DeweyHelpers::sentences')
       Faker.lorem.sentences(n)

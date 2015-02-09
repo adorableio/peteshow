@@ -1,0 +1,11 @@
+# .pairs - configuration for 'git pair'
+# place in project or home directory
+pairs:
+  kevin: Kevin Altman; kaltman
+  pete: Pete Brousalis; brousalis
+email:
+  prefix: pair
+  domain: peteshow.com
+email_addresses:
+  pete: brousapg@gmail.com
+  kevin: kevin@itsthatguy.com

@@ -3,16 +3,16 @@ describe 'Helpers', ->
   beforeEach (done) ->
     browser.visit('/')
       .then ->
-        initPeteshow = "Peteshow.init();"
-        browser.evaluate(initPeteshow)
+        initDewey = "Dewey.init();"
+        browser.evaluate(initDewey)
         done()
 
-  it 'exposes the Peteshow.random object', (done) ->
-    browser.assert.evaluate('Peteshow.random')
+  it 'exposes the Dewey.random object', (done) ->
+    browser.assert.evaluate('Dewey.random')
     done()
 
   it 'generates random values', (done) ->
-    check = (fn, matcher, message) -> browser.assert.evaluate("Peteshow.random.#{fn}()", matcher, message)
+    check = (fn, matcher, message) -> browser.assert.evaluate("Dewey.random.#{fn}()", matcher, message)
 
     check('date'        , REGEX.DATE)
     check('letters'     , REGEX.TEXT)
