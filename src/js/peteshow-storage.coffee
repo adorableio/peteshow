@@ -1,6 +1,10 @@
 # LocalStorage should fallback to userData when not available
 store = require('store')
 cs    = require('calmsoul')
+_     = require('lodash')
+
+unless store.get('peteshow')
+  store.set('peteshow', {})
 
 module.exports =
   get: (key) ->
@@ -12,9 +16,28 @@ module.exports =
 
   set: (key, data) ->
     cs.log('PeteshowStorage::set')
-    _data = store.get('peteshow') || {}
-    _data[key] = data
-    store.set('peteshow', _data)
+    if key == 'sessions'
+      cs.info('PeteshowStorage::set [Error] Please use addSession() to set a session')
+      return
+    storedData = @get()
+    console.log key, data
+
+    switch typeof data
+      when "array"
+        console.log "array"
+        storedData[key] = [] unless storedData[key]?
+        _data = _.merge(storedData[key], data)
+      when "object"
+        console.log "object"
+        storedData[key] = {} unless storedData[key]?
+        _data = _.merge(storedData[key], data)
+      else
+        console.log "else"
+        _data = data
+
+    storedData[key] = _data
+    store.set('peteshow', storedData)
+
 
   clear: ->
     cs.log('PeteshowStorage::clear')
