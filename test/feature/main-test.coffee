@@ -1,9 +1,9 @@
-describe 'PeteShow', ->
+describe 'dewey', ->
 
   beforeEach (done) ->
     browser.visit('/')
       .then ->
-        initPeteshow = "Peteshow.init({
+        initDewey = "Dewey.init({
           rules: {
             'input[name*=zip]'              : '60611',
             'input[name*=middle_name]'      : faker.name.firstName(),
@@ -16,8 +16,8 @@ describe 'PeteShow', ->
             'input[name=saved_2]' : '/tests_2'
             }
         });"
-        browser.evaluate("Peteshow.store.clear()")
-        browser.evaluate(initPeteshow)
+        browser.evaluate("Dewey.store.clear()")
+        browser.evaluate(initDewey)
         done()
 
   it 'is running the test server', (done) ->
@@ -25,33 +25,33 @@ describe 'PeteShow', ->
     done()
 
   it 'exists in the DOM', (done) ->
-    browser.assert.element('#peteshow')
+    browser.assert.element('#dewey')
     done()
 
   it 'is accessible in javascript', (done) ->
-    browser.assert.global('Peteshow')
+    browser.assert.global('Dewey')
     done()
 
-  it 'shows peteshow when #peteshow-toggle is clicked', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'active')
-    browser.fire("#peteshow-toggle", 'click')
-    browser.assert.hasClass('#peteshow', 'active')
+  it 'shows dewey when #dewey-toggle is clicked', (done) ->
+    browser.assert.hasNoClass('#dewey', 'open')
+    browser.fire("#dewey-toggle", 'click')
+    browser.assert.hasClass('#dewey', 'open')
     done()
 
-  it 'shows peteshow with Peteshow.show(true)', (done) ->
-    browser.assert.hasNoClass('#peteshow', 'active')
-    browser.evaluate("Peteshow.show(true)")
-    browser.assert.hasClass('#peteshow', 'active')
+  it 'shows dewey with Dewey.open(true)', (done) ->
+    browser.assert.hasNoClass('#dewey', 'open')
+    browser.evaluate("Dewey.open(true)")
+    browser.assert.hasClass('#dewey', 'open')
     done()
 
-  it 'hides peteshow with Peteshow.show(false)', (done) ->
-    browser.evaluate("Peteshow.show(true)")
-    browser.evaluate("Peteshow.show(false)")
-    browser.assert.hasNoClass('#peteshow', 'active')
+  it 'hides dewey with Dewey.open(false)', (done) ->
+    browser.evaluate("Dewey.open(true)")
+    browser.evaluate("Dewey.open(false)")
+    browser.assert.hasNoClass('#dewey', 'open')
     done()
 
   it 'should have valid values', (done) ->
-    browser.assert.evaluate('Peteshow.fillOutForms()')
+    browser.assert.evaluate('Dewey.fillOutForms()')
 
     fields =
       'input[type=password]'      : 'password'
@@ -90,24 +90,24 @@ describe 'PeteShow', ->
     done()
 
   it 'should ignore fields', (done) ->
-    browser.assert.evaluate('Peteshow.fillOutForms()')
+    browser.assert.evaluate('Dewey.fillOutForms()')
     browser.assert.inputFirst('input[name=ignore_me]', "")
     done()
 
   it 'should have valid values from plugin after filling out forms', (done) ->
-    browser.assert.evaluate('Peteshow.fillOutForms()')
+    browser.assert.evaluate('Dewey.fillOutForms()')
     browser.assert.inputFirst('input[name*=zip]', 60611)
     browser.assert.inputFirst('input[name*=custom_name]', 'Custom')
     done()
 
   it 'should not change value of checkbox but attribute checked', (done) ->
-    browser.assert.evaluate('Peteshow.fillOutForms()')
+    browser.assert.evaluate('Dewey.fillOutForms()')
     browser.assert.evaluate("$('input[name=boolean_checkbox]').val()", 1)
     browser.assert.evaluate("$('input[name=boolean_checkbox]').prop('checked')", true)
     done()
 
   it 'uses fields set to save in the init', (done) ->
-    browser.evaluate("Peteshow.fillOutForms()")
+    browser.evaluate("Dewey.fillOutForms()")
     browser.assert.input('input[name=saved]', '/tests')
     browser.assert.input('input[name=saved_2]', '/tests_2')
     done()

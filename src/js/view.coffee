@@ -1,30 +1,35 @@
 _             = require('lodash')
 indexTemplate = require('../templates/index.hbs')
-store         = require('./peteshow-storage')
+store         = require('./storage')
 cs            = require('calmsoul')
 
-class PeteshowView
-  controller: Peteshow.controller
+class DeweyView
+  controller: Dewey.controller
   _events: {}
 
-  $peteshow: '#peteshow'
-  $dragHandle: '#peteshow-drag-handle'
-  $tools: '#peteshow-tools'
+  $dewey: '#dewey'
+  $dragHandle: '#dewey-drag-handle'
+  $tools: '#dewey-tools'
+  $sessions: '.dewey-sessions'
 
   constructor: ->
-    cs.log("PeteshowView::init")
+    cs.log("DeweyView::init")
     @_position = store.get('position') || {x:0, y:0}
-    @_active = store.get('active') || false
+
+    @_open = store.get('open')
+    @_open = if typeof @_open != "boolean" then false else @_open
+
     @_events =
       '#fill-out-forms' : @controller.fillOutForms
       '#fill-out-forms-and-submit' : @controller.fillOutFormsAndSubmit
-      '#peteshow-toggle': @show
-      '#peteshow-hide': @hide
+      '#dewey-toggle': @open
+      '#dewey-hide': @hide
 
   _bindElements: ->
-    @$peteshow   = $(@$peteshow)
+    @$dewey      = $(@$dewey)
     @$tools      = $(@$tools)
     @$dragHandle = $(@$dragHandle)
+    @$sessions   = $(@$sessions)
 
   _createEvents: (events) ->
     for key, value of events
@@ -44,6 +49,13 @@ class PeteshowView
 
     $(document).keydown @_handleKeypress
 
+    $('form[name=registration], form[class=simple_form]').on 'submit', (e) ->
+      return
+
+    @$sessions.find('input:radio').on 'change', (e) =>
+      id = $(e.currentTarget).data('session')
+      @controller.setSession(id)
+
   _handleKeypress: (e) =>
     # key  = if (typeof e.which == 'number') then e.which else e.keyCode
     code = String.fromCharCode(e.keyCode)
@@ -58,10 +70,10 @@ class PeteshowView
     # return if (e.metaKey)
 
     cs.log(e.keyCode)
-    @show() if (e.keyCode == 192)
+    @open() if (e.keyCode == 192)
 
     action  = $("[data-command='#{code}']")
-    visible = @$peteshow.is('.active')
+    visible = @$dewey.is('.open')
 
     action.click() if (action.length > 0 && visible)
 
@@ -82,7 +94,7 @@ class PeteshowView
       @_positionWindow(position)
 
   _positionWindow: (position) ->
-    $el = @$peteshow
+    $el = @$dewey
     if position
       position.x = 0 if position.x < 0
       position.y = 0 if position.y < 0
@@ -100,7 +112,7 @@ class PeteshowView
     $el.css(left: position.x, top: position.y)
 
   render: ->
-    cs.log('PeteshowView::render')
+    cs.log('DeweyView::render')
 
     template = indexTemplate()
     $('body').append(template)
@@ -108,26 +120,29 @@ class PeteshowView
     @_bindElements()
     @_positionWindow()
     @_createEvents(@_events)
-    @show(@_active)
+    @open(@_open)
 
-  show: (active) =>
-    if active == undefined
-      active = !@_active
+  setSession: (id) ->
+    @$sessions.find("[data-session=#{id}]").prop('checked', true).change()
 
-    cs.debug('PeteshowView::show', active)
+  open: (open) =>
+    if open == undefined
+      open = !@_open
 
-    @$peteshow.toggleClass('active', active)
-    @$tools.toggle(active)
+    cs.log('DeweyView::open', open)
 
-    store.set('active', active)
-    @_active = active
+    @$dewey.toggleClass('open', open)
+    @$tools.toggle(open)
+
+    store.set('open', open)
+    @_open = open
 
   hide: =>
-    cs.log('PeteshowView::hide')
-    $('#peteshow').show(false)
+    cs.log('DeweyView::hide')
+    @$dewey.show(false)
 
   destroy: ->
-    cs.log('PeteshowView::destroy')
-    $('#peteshow').remove()
+    cs.log('DeweyView::destroy')
+    @$dewey.remove()
 
-module.exports = new PeteshowView()
+module.exports = new DeweyView()
